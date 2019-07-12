@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_11_033010) do
+ActiveRecord::Schema.define(version: 2019_07_11_163406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "property_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_favorites_on_property_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
 
   create_table "properties", force: :cascade do |t|
     t.string "image"
@@ -25,15 +34,13 @@ ActiveRecord::Schema.define(version: 2019_07_11_033010) do
     t.string "temp"
     t.float "sqfeet"
     t.float "price"
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_properties_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
-    t.string "password_digest"
+    t.string "password"
     t.string "first_name"
     t.string "last_name"
     t.string "hometown"
@@ -41,5 +48,6 @@ ActiveRecord::Schema.define(version: 2019_07_11_033010) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "properties", "users"
+  add_foreign_key "favorites", "properties"
+  add_foreign_key "favorites", "users"
 end

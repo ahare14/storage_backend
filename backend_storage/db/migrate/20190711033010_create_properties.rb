@@ -10,7 +10,6 @@ class CreateProperties < ActiveRecord::Migration[5.2]
       t.string :temp
       t.float :sqfeet
       t.float :price
-      t.references :user, foreign_key: true
 
       t.timestamps
     end

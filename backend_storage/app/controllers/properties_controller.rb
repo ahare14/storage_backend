@@ -1,9 +1,11 @@
 class PropertiesController < ApplicationController
   before_action :set_property, only: [:show, :update, :destroy]
+  # skip_before_action :authorized
 
   # GET /properties
   def index
-    @properties = Property.all
+     @properties = Property.all
+
 
     render json: @properties
   end
@@ -46,6 +48,6 @@ class PropertiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def property_params
-      params.require(:property).permit(:image, :address, :city, :state, :zip_code, :type, :temp, :sqft, :price, :user_id)
+      params.require(:property).permit(:image, :address, :city, :state, :zip_code, :type, :temp, :sqft, :price)
     end
 end
